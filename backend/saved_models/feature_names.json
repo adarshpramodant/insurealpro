@@ -1,0 +1,19 @@
+[
+  "age",
+  "bmi",
+  "children",
+  "is_female",
+  "is_smoker",
+  "is_obese",
+  "bmi_squared",
+  "age_squared",
+  "smoker_bmi",
+  "smoker_obese",
+  "smoker_age",
+  "age_bmi",
+  "sex_male",
+  "smoker_yes",
+  "region_northwest",
+  "region_southeast",
+  "region_southwest"
+]

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InsureAI Pro - Enterprise AI Insurance Intelligence Platform</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Background Glowing Orbs -->
+  <div class="bg-glow-orb bg-orb-1"></div>
+  <div class="bg-glow-orb bg-orb-2"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo" onclick="switchPage('landing')">
+      <div class="brand-icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <span>InsureAI <span class="gradient-text">Pro</span></span>
+    </a>
+    
+    <ul class="nav-links">
+      <li class="nav-item active" id="nav-landing" onclick="switchPage('landing')"><i class="fa-solid fa-house"></i> Home</li>
+      <li class="nav-item" id="nav-predict" onclick="switchPage('predict')"><i class="fa-solid fa-calculator"></i> Predictor</li>
+      <li class="nav-item" id="nav-result" onclick="switchPage('result')" style="display:none;"><i class="fa-solid fa-chart-pie"></i> Result</li>
+      <li class="nav-item" id="nav-whatif" onclick="switchPage('whatif')"><i class="fa-solid fa-sliders"></i> What-If</li>
+      <li class="nav-item" id="nav-analytics" onclick="switchPage('analytics')"><i class="fa-solid fa-chart-line"></i> Analytics</li>
+      <li class="nav-item" id="nav-history" onclick="switchPage('history')"><i class="fa-solid fa-clock-rotate-left"></i> History</li>
+      <li class="nav-item" id="nav-admin" onclick="switchPage('admin')"><i class="fa-solid fa-user-shield"></i> Admin</li>
+      <li class="nav-item" id="nav-glossary" onclick="switchPage('glossary')"><i class="fa-solid fa-book-bookmark"></i> Glossary</li>
+      <a href="/api/docs" target="_blank" class="nav-item" style="text-decoration:none;"><i class="fa-solid fa-code"></i> API Docs</a>
+    </ul>
+
+    <!-- Accessibility Toolbar -->
+    <div class="accessibility-toolbar">
+      <button class="tool-btn" onclick="toggleContrast()" title="Toggle High Contrast"><i class="fa-solid fa-eye"></i></button>
+      <button class="tool-btn" onclick="toggleLargeFont()" title="Toggle Large Font"><i class="fa-solid fa-font"></i></button>
+      <button class="tool-btn" onclick="toggleReducedMotion()" title="Toggle Motion"><i class="fa-solid fa-film"></i></button>
+      <button class="tool-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Theme"><i class="fa-solid fa-sun" id="themeIcon"></i></button>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <!-- PAGE 1: LANDING PAGE -->
+    <section class="page-view active" id="page-landing">
+      <div class="hero-section">
+        <div>
+          <div class="hero-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Enterprise AI Insurance Platform</div>
+          <h1 class="hero-title">Precision Health <br><span class="gradient-text">Insurance Intelligence</span></h1>
+          <p class="hero-subtitle">
+            Powered by a 3-model confidence ensemble (XGBoost, Random Forest, CatBoost), real-time SHAP explainability, and multi-frequency risk attribution.
+          </p>
+          <div class="hero-buttons">
+            <button class="btn-primary" onclick="switchPage('predict')"><i class="fa-solid fa-bolt"></i> Launch Predictor</button>
+            <button class="btn-secondary" onclick="switchPage('analytics')"><i class="fa-solid fa-chart-column"></i> Analytics Dashboard</button>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding: 2.2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+            <h3 style="color: var(--text-secondary); font-size: 0.9rem;">MODEL ENSEMBLE ACCURACY</h3>
+            <span style="background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.82rem;">VERIFIED PROD</span>
+          </div>
+
+          <div style="font-size: 3.2rem; font-weight: 800; font-family: 'Outfit';" id="landingR2Score">88.5%</div>
+          <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem;">5-Fold Cross-Validation R² Score</p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--glass-border); padding-top: 1.2rem;">
+            <div>
+              <div style="color: var(--text-muted); font-size: 0.78rem;">TOP ENSEMBLE</div>
+              <div style="font-weight: 700; font-size: 0.98rem;">XGB + RF + CatBoost</div>
+            </div>
+            <div>
+              <div style="color: var(--text-muted); font-size: 0.78rem;">AVG MAE</div>
+              <div style="font-weight: 700; font-size: 0.98rem;">₹1,943.84</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: SMART PREDICTOR FORM -->
+    <section class="page-view" id="page-predict">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 2.2rem;">Insurance Premium Intelligence Predictor</h2>
+        <p style="color: var(--text-secondary);">Calculates multi-model confidence ensemble and personalized health advisory.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="glass-card" style="padding: 2rem;">
+          <form id="predictionForm" onsubmit="handlePredictionSubmit(event)">
+            
+            <!-- Age Slider -->
+            <div class="form-group">
+              <div class="form-label">
+                <span>Age (Years) <i class="fa-solid fa-circle-info info-tooltip" title="Age affects baseline actuarial mortality rates."></i></span>
+                <span class="range-val-badge" id="ageVal">35</span>
+              </div>
+              <input type="range" class="range-slider" id="inputAge" min="18" max="100" value="35" oninput="document.getElementById('ageVal').innerText = this.value; updateLiveEstimate();">
+            </div>
+
+            <!-- Sex Segmented Toggle -->
+            <div class="form-group">
+              <div class="form-label"><span>Sex / Gender</span></div>
+              <div class="segmented-toggle">
+                <div class="segmented-option active" id="sexFemale" onclick="selectSegment('sex', 'female')"><i class="fa-solid fa-venus"></i> Female</div>
+                <div class="segmented-option" id="sexMale" onclick="selectSegment('sex', 'male')"><i class="fa-solid fa-mars"></i> Male</div>
+              </div>
+            </div>
+
+            <!-- SMART LIVE BMI CALCULATOR PANEL -->
+            <div style="padding: 1.2rem; background: rgba(99, 102, 241, 0.08); border-radius: var(--radius-md); border: 1px solid rgba(99, 102, 241, 0.2); margin-bottom: 1.5rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h4 style="font-size: 0.95rem; color: var(--accent-primary);"><i class="fa-solid fa-calculator"></i> Smart Live BMI Calculator</h4>
+                <div style="display: flex; gap: 6px;">
+                  <button type="button" class="tool-btn" style="width:auto; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem;" onclick="setUnitSystem('metric')">Metric (cm/kg)</button>
+                  <button type="button" class="tool-btn" style="width:auto; padding: 2px 10px; border-radius: 12px; font-size: 0.78rem;" onclick="setUnitSystem('imperial')">Imperial (in/lbs)</button>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <label style="font-size: 0.8rem; color: var(--text-secondary);" id="lblHeight">Height (cm)</label>
+                  <input type="number" class="form-input" id="calcHeight" value="170" oninput="calculateSmartBMI()">
+                </div>
+                <div>
+                  <label style="font-size: 0.8rem; color: var(--text-secondary);" id="lblWeight">Weight (kg)</label>
+                  <input type="number" class="form-input" id="calcWeight" value="75" oninput="calculateSmartBMI()">
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--glass-border);">
+                <div>
+                  <span style="font-size: 0.82rem; color: var(--text-muted);">Calculated BMI: </span>
+                  <span style="font-weight: 800; font-size: 1.1rem; color: var(--accent-secondary);" id="calcBmiResult">26.0</span>
+                </div>
+                <span id="calcBmiBadge" class="risk-badge info">Overweight</span>
+              </div>
+            </div>
+
+            <!-- BMI Manual Slider Override -->
+            <div class="form-group">
+              <div class="form-label">
+                <span>BMI Value <i class="fa-solid fa-circle-info info-tooltip" title="BMI above 30 triggers elevated risk tiers."></i></span>
+                <span class="range-val-badge" id="bmiVal">26.0</span>
+              </div>
+              <input type="range" class="range-slider" id="inputBmi" min="15.0" max="55.0" step="0.1" value="26.0" oninput="document.getElementById('bmiVal').innerText = this.value; updateLiveEstimate();">
+            </div>
+
+            <!-- Children Stepper -->
+            <div class="form-group">
+              <div class="form-label"><span>Dependents / Children</span></div>
+              <select class="form-select" id="inputChildren" onchange="updateLiveEstimate()">
+                <option value="0">0 Dependents</option>
+                <option value="1">1 Child</option>
+                <option value="2" selected>2 Children</option>
+                <option value="3">3 Children</option>
+                <option value="4">4+ Children</option>
+              </select>
+            </div>
+
+            <!-- Smoker Toggle -->
+            <div class="form-group">
+              <div class="form-label"><span>Tobacco / Smoker Status <i class="fa-solid fa-circle-info info-tooltip" title="Smoker status is the largest single price multiplier."></i></span></div>
+              <div class="segmented-toggle">
+                <div class="segmented-option active" id="smokerNo" onclick="selectSegment('smoker', 'no')"><i class="fa-solid fa-ban-smoking"></i> Non-Smoker</div>
+                <div class="segmented-option" id="smokerYes" onclick="selectSegment('smoker', 'yes')"><i class="fa-solid fa-smoking"></i> Smoker</div>
+              </div>
+            </div>
+
+            <!-- Region Selector -->
+            <div class="form-group">
+              <div class="form-label"><span>Region</span></div>
+              <select class="form-select" id="inputRegion" onchange="updateLiveEstimate()">
+                <option value="southeast">Southeast</option>
+                <option value="southwest">Southwest</option>
+                <option value="northeast">Northeast</option>
+                <option value="northwest">Northwest</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;" id="predictSubmitBtn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i> Execute InsureAI Pro Prediction
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Preview Panel with Multi-Frequency Pricing -->
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1rem; font-size: 1.15rem;"><i class="fa-solid fa-eye"></i> Multi-Frequency Estimate Preview</h3>
+          
+          <div class="multi-freq-grid">
+            <div class="freq-card">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">ANNUAL</div>
+              <div class="freq-val" id="prevAnnual">₹6,850</div>
+            </div>
+            <div class="freq-card">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">MONTHLY</div>
+              <div class="freq-val" id="prevMonthly">₹570</div>
+            </div>
+            <div class="freq-card">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">QUARTERLY</div>
+              <div class="freq-val" id="prevQuarterly">₹1,712</div>
+            </div>
+            <div class="freq-card">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">DAILY</div>
+              <div class="freq-val" id="prevDaily">₹19</div>
+            </div>
+          </div>
+
+          <div id="liveAlertBox" style="font-size: 0.88rem; padding: 12px; border-radius: 10px; background: rgba(6, 182, 212, 0.1); color: var(--accent-secondary); margin-top: 1.5rem;">
+            Standard non-smoker rates apply.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: PREDICTION RESULT & ADVISORY DASHBOARD -->
+    <section class="page-view" id="page-result">
+      
+      <!-- Multi-Model Agreement Header Card -->
+      <div class="glass-card" style="padding: 2.2rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase;">FINAL ENSEMBLE PREDICTED PREMIUM</div>
+            <div class="gradient-text" style="font-size: 3.4rem; font-weight: 800; font-family: 'Outfit';" id="resPredictedCharge">₹0.00</div>
+            <div style="color: var(--text-muted); font-size: 0.9rem;" id="resExpectedRange">Likely Range: ₹0 – ₹0</div>
+          </div>
+
+          <div style="text-align: right;">
+            <div class="risk-badge info" id="resRiskBadge" style="font-size: 1.1rem; padding: 10px 22px;"><i class="fa-solid fa-shield-virus"></i> Moderate Risk</div>
+            <div style="margin-top: 8px; font-weight: 700; color: var(--accent-emerald);" id="resAgreement">Model Agreement: 97.8%</div>
+            <div style="color: var(--text-muted); font-size: 0.82rem;" id="resConfidenceRating">High Confidence Rating</div>
+          </div>
+        </div>
+
+        <!-- Top 3 Model Breakdown Row -->
+        <div style="margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--glass-border);">
+          <div style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;">TOP 3 ENSEMBLE MODEL BREAKDOWN:</div>
+          <div class="model-estimates-list" id="resModelEstimatesList"></div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 1.5rem;">
+          <button class="btn-primary" onclick="exportCurrentResult('pdf')"><i class="fa-solid fa-file-pdf"></i> Download PDF Report</button>
+          <button class="btn-secondary" onclick="exportCurrentResult('excel')"><i class="fa-solid fa-file-excel"></i> Export Excel</button>
+          <button class="btn-secondary" onclick="exportCurrentResult('csv')"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+          <button class="btn-secondary" onclick="exportCurrentResult('json')"><i class="fa-solid fa-code"></i> Export JSON</button>
+        </div>
+      </div>
+
+      <!-- Plain English Explanation & Optimization Advisor -->
+      <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+        
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-align-left"></i> Plain English Premium Explanation</h3>
+          <p id="resPlainEnglish" style="color: var(--text-secondary); line-height: 1.6; font-size: 1.02rem; margin-bottom: 1.5rem;"></p>
+
+          <h4 style="margin-bottom: 0.8rem; font-size: 0.98rem; color: var(--accent-primary);"><i class="fa-solid fa-percent"></i> Percentage Cost Contribution Breakdown:</h4>
+          <div id="resPercentageBreakdownList" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-bullseye"></i> Premium Optimization Advisor</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">Actionable steps with estimated annual cost reductions:</p>
+          <div class="optimization-grid" id="resOptimizationList"></div>
+        </div>
+      </div>
+
+      <!-- Health Risk Radar & 3-Tier Policy Comparison -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-radar"></i> Health Risk Radar Profile</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartHealthRadar"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-heart-pulse"></i> Personalized Health Scores</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">HEALTH SCORE</div>
+              <div style="font-size: 2.2rem; font-weight: 800; color: var(--accent-emerald);" id="resHealthScore">85</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">AFFORDABILITY SCORE</div>
+              <div style="font-size: 2.2rem; font-weight: 800; color: var(--accent-secondary);" id="resAffordabilityScore">92</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Tier Policy Comparison Grid -->
+      <div class="glass-card" style="padding: 2rem;">
+        <h3><i class="fa-solid fa-layer-group"></i> 3-Tier Recommended Policy Plans</h3>
+        <div class="tier-grid" id="resTierGrid"></div>
+      </div>
+
+    </section>
+
+    <!-- PAGE 4: WHAT-IF SCENARIO SIMULATOR -->
+    <section class="page-view" id="page-whatif">
+      <div style="margin-bottom: 2rem;">
+        <h2>Interactive What-If Scenario Simulator</h2>
+        <p style="color: var(--text-secondary);">Simulate lifestyle changes and see instant premium drop estimates.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="glass-card" style="padding: 2rem;">
+          <h3 style="margin-bottom: 1.2rem;"><i class="fa-solid fa-sliders"></i> Scenario Controls</h3>
+          
+          <div class="form-group">
+            <div class="form-label"><span>Simulate Tobacco Cessation</span></div>
+            <select class="form-select" id="whatifSmoker" onchange="triggerWhatIfSimulation()">
+              <option value="no">Non-Smoker (Quit Tobacco)</option>
+              <option value="yes">Smoker</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label"><span>Simulate Target BMI</span> <span class="range-val-badge" id="whatifBmiVal">24.0</span></div>
+            <input type="range" class="range-slider" id="whatifBmi" min="18.5" max="45.0" step="0.5" value="24.0" oninput="document.getElementById('whatifBmiVal').innerText = this.value; triggerWhatIfSimulation();">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label"><span>Simulate Aging (+Years)</span> <span class="range-val-badge" id="whatifAgeVal">0</span></div>
+            <input type="range" class="range-slider" id="whatifAgeDelta" min="0" max="20" value="0" oninput="document.getElementById('whatifAgeVal').innerText = '+' + this.value; triggerWhatIfSimulation();">
+          </div>
+        </div>
+
+        <div class="glass-card" style="padding: 2rem; text-align: center;">
+          <h3 style="margin-bottom: 1.5rem;"><i class="fa-solid fa-calculator"></i> Real-time Delta Impact</h3>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">CURRENT PREMIUM</div>
+              <div style="font-size: 1.6rem; font-weight: 800;" id="whatifCurrent">₹0.00</div>
+            </div>
+            <div style="padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 12px;">
+              <div style="font-size: 0.8rem; color: var(--accent-emerald);">SIMULATED PREMIUM</div>
+              <div style="font-size: 1.6rem; font-weight: 800; color: var(--accent-emerald);" id="whatifSimulated">₹0.00</div>
+            </div>
+          </div>
+
+          <div style="padding: 1.5rem; background: rgba(99, 102, 241, 0.1); border-radius: var(--radius-md); border: 1px solid rgba(99, 102, 241, 0.3);">
+            <div style="font-size: 0.85rem; color: var(--text-muted);">ESTIMATED ANNUAL SAVINGS</div>
+            <div style="font-size: 2.8rem; font-weight: 800; color: var(--accent-primary);" id="whatifSavings">₹0.00</div>
+            <div style="font-weight: 700; color: var(--accent-emerald);" id="whatifPctChange">0.0% Reduction</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: ANALYTICS & HEALTH TIMELINE -->
+    <section class="page-view" id="page-analytics">
+      <div style="margin-bottom: 1.5rem;">
+        <h2>Enterprise Analytics & 5-Year Premium Timeline</h2>
+        <p style="color: var(--text-secondary);">National benchmark comparisons and projected premium timelines.</p>
+      </div>
+
+      <!-- National Average Comparison Header Card -->
+      <div class="glass-card" style="padding: 1.8rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">NATIONAL AVERAGE PREMIUM COMPARISON</div>
+          <div style="font-size: 1.8rem; font-weight: 800;" id="natCompText">₹42,000 vs National Avg ₹36,000</div>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;" id="natCompExplanation"></p>
+        </div>
+        <div style="font-size: 2rem; font-weight: 800; color: var(--accent-rose);" id="natCompBadge">+16.7%</div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="glass-card chart-card">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-chart-line"></i> Projected 5-Year Health Risk Timeline</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartHealthTimeline"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-trophy"></i> 16 Algorithm R² Score Benchmark</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartModelBenchmark"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-layer-group"></i> SHAP Global Feature Importance</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartFeatureImportance"></canvas>
+          </div>
+        </div>
+
+        <div class="glass-card chart-card">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-smoking"></i> Tobacco Impact Multiplier</h3>
+          <div class="chart-wrapper">
+            <canvas id="chartSmokerImpact"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: PREDICTION HISTORY -->
+    <section class="page-view" id="page-history">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2>Prediction History Database</h2>
+          <p style="color: var(--text-secondary);">Search, filter, and export persistent SQLite logs.</p>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-secondary" onclick="exportHistoryCsv()"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+          <button class="btn-secondary" style="color: var(--accent-rose); border-color: rgba(244, 63, 94, 0.3);" onclick="clearAllHistory()"><i class="fa-solid fa-trash"></i> Clear All</button>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding: 1.5rem; margin-bottom: 1.5rem; display: flex; gap: 15px; flex-wrap: wrap;">
+        <input type="text" class="form-input" id="historySearch" placeholder="Search region, smoker, or sex..." style="flex: 2; min-width: 200px;" oninput="fetchHistoryData()">
+        
+        <select class="form-select" id="historySmokerFilter" style="flex: 1; min-width: 140px;" onchange="fetchHistoryData()">
+          <option value="all">All Smokers</option>
+          <option value="yes">Smoker Only</option>
+          <option value="no">Non-Smoker Only</option>
+        </select>
+      </div>
+
+      <div class="glass-card table-container">
+        <table class="glass-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Timestamp</th>
+              <th>Applicant</th>
+              <th>BMI / Smoker</th>
+              <th>Risk Level</th>
+              <th>Predicted Premium</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PAGE 7: ADMIN DASHBOARD -->
+    <section class="page-view" id="page-admin">
+      <div style="margin-bottom: 1.5rem;">
+        <h2>Admin Operations & Telemetry Dashboard</h2>
+        <p style="color: var(--text-secondary);">Real-time database statistics and audit log stream.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <div class="glass-card" style="padding: 1.2rem; text-align: center;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">TOTAL PREDICTIONS</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent-primary);" id="admTotalPreds">0</div>
+        </div>
+        <div class="glass-card" style="padding: 1.2rem; text-align: center;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">AVG PREMIUM</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent-secondary);" id="admAvgPremium">₹0</div>
+        </div>
+        <div class="glass-card" style="padding: 1.2rem; text-align: center;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">AVG BMI</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent-emerald);" id="admAvgBmi">0.0</div>
+        </div>
+        <div class="glass-card" style="padding: 1.2rem; text-align: center;">
+          <div style="font-size: 0.8rem; color: var(--text-muted);">SMOKER RATIO</div>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--accent-rose);" id="admSmokerRatio">0%</div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="padding: 1.8rem;">
+        <h3><i class="fa-solid fa-list-check"></i> Audit Log Event Stream</h3>
+        <div class="table-container" style="max-height: 350px;">
+          <table class="glass-table">
+            <thead>
+              <tr>
+                <th>Log ID</th>
+                <th>Timestamp</th>
+                <th>Action Type</th>
+                <th>IP Address</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="adminAuditTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 8: INSURANCE GLOSSARY -->
+    <section class="page-view" id="page-glossary">
+      <div style="margin-bottom: 2rem;">
+        <h2>Insurance Glossary & Terms Center</h2>
+        <p style="color: var(--text-secondary);">Educational reference guide for health insurance and ML terms.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="glass-card feature-card">
+          <h3>Annual Premium</h3>
+          <p>The total lump-sum amount paid per year to maintain health insurance coverage.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <h3>Co-payment (Co-pay)</h3>
+          <p>A fixed percentage of medical bills paid out-of-pocket by the policyholder.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <h3>Deductible</h3>
+          <p>The threshold amount you must pay before your insurance policy begins contributing.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <h3>SHAP Explainability</h3>
+          <p>Shapley Additive exPlanations quantify the exact contribution of each feature to predictions.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING AI CHATBOT WIDGET -->
+  <button class="chatbot-trigger" onclick="toggleChatbot()"><i class="fa-solid fa-comments"></i></button>
+  <div class="chatbot-drawer glass-card" id="chatbotDrawer">
+    <div class="chatbot-header">
+      <div style="font-weight: 700;"><i class="fa-solid fa-robot"></i> InsureAI Assistant</div>
+      <button style="background:none; border:none; color:#fff; cursor:pointer;" onclick="toggleChatbot()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="chatbot-body" id="chatBody">
+      <div class="chat-msg bot">Hi! I'm your **InsureAI Pro Assistant**. Ask me anything about your premium estimate, BMI, or savings tips!</div>
+    </div>
+    <div class="chatbot-input-box">
+      <input type="text" class="form-input" id="chatInput" placeholder="Ask a question..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+      <button class="btn-primary" style="padding: 8px 14px;" onclick="sendChatMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- SKELETON LOADER PROGRESS MODAL -->
+  <div class="loader-modal" id="loaderModal">
+    <div class="loader-spinner"></div>
+    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;" id="loaderStatusText">Analyzing Health Profile...</h3>
+    <p style="color: var(--text-secondary); font-size: 0.9rem;">InsureAI Pro 3-Model Ensemble Engine Running</p>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/static/js/app.js"></script>
+  <script src="/static/js/charts.js"></script>
+</body>
+</html>
